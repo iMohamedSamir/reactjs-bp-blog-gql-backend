@@ -7,7 +7,7 @@ import { config } from "./config.js";
 import { typeDefs } from "./graphql/typeDefs.js";
 import { resolvers } from "./graphql/resolvers/index.js";
 
-const port = proccess.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 const startServer = async () => {
   const server = new ApolloServer({
