@@ -1,0 +1,27 @@
+{
+  "name": "full-stack-tut",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "apollo-server": "^3.6.7",
+    "bcryptjs": "^2.4.3",
+    "esm": "^3.2.25",
+    "graphql": "^16.3.0",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.9",
+    "npm": "^8.12.2",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0"
+  }
+}
