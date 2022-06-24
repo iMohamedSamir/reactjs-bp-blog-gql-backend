@@ -1,1 +1,1 @@
-yarn: serve
+web: node index.js
