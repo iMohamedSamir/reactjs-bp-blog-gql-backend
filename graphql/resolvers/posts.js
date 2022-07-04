@@ -17,9 +17,7 @@ export const postResolvers = {
             };
         },
         // Posts -> Fetch resolver.
-        getPost: async (_, {
-            postId
-        }) => {
+        getPost: async (_, { postId }) => {
             const isValidId = mongoose.Types.ObjectId.isValid(postId)
             if (isValidId) {
                 try {
@@ -33,7 +31,27 @@ export const postResolvers = {
     },
     // Post Mutations.
     Mutation: {
-        // Create.
+        // Edit
+        async editPost(_, { postId, title, body }) {
+            console.log("postIdpostId>>", postId)
+            // const user = checkAuth(context);
+            const isValidId = mongoose.Types.ObjectId.isValid(postId);
+            if(isValidId){
+                try {
+                    const editedPost = await Post.findByIdAndUpdate(
+                        postId, {
+                            title, 
+                            body,
+                            lastEdit: new Date().toISOString()
+                        }, {new: true});
+                    //TODO: Callback?
+                    return editedPost
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        },
+        // Create
         async createPost(_, { title, body }, context) {
             const user = checkAuth(context)
 

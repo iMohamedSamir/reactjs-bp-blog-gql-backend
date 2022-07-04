@@ -6,6 +6,7 @@ export const typeDefs = gql `
         title: String!
         body: String!
         createdAt: String!
+        lastEdit: String!
         username: String!
         comments: [Comment]!
         likes: [Like]!
@@ -52,5 +53,6 @@ export const typeDefs = gql `
         createComment(postId: String!, body: String!): Comment!
         deleteComment(postId: String!, commentId: ID): Post!
         likePost(postId: ID!): Post!
+        editPost(postId: ID!, title: String!, body: String!): Post
     }
 `
