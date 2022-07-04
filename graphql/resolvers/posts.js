@@ -32,9 +32,8 @@ export const postResolvers = {
     // Post Mutations.
     Mutation: {
         // Edit
-        async editPost(_, { postId, title, body }) {
-            console.log("postIdpostId>>", postId)
-            // const user = checkAuth(context);
+        async editPost(_, { postId, title, body }, context) {
+            const user = checkAuth(context);
             const isValidId = mongoose.Types.ObjectId.isValid(postId);
             if(isValidId){
                 try {
@@ -49,7 +48,7 @@ export const postResolvers = {
                 } catch (err) {
                     console.log(err)
                 }
-            }
+            } else throw new Error('Not valid mongodb ID');
         },
         // Create
         async createPost(_, { title, body }, context) {
