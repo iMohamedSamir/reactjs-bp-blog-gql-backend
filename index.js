@@ -14,7 +14,7 @@ const startServer = async () => {
     typeDefs,
     resolvers,
     context: ({ req }) => ({ req }),
-    introspection: process.env.NODE_ENV !== 'development'
+    introspection: process.env.NODE_ENV !== 'development',
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
   });
   await mongoose.connect(config.dbUri).then(() => console.log("connected"));
