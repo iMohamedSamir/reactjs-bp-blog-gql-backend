@@ -1,3 +1,31 @@
+export const validateEditUserInput = (
+    username,
+    email,
+    password,
+    confirmPassword) => {
+    const errors = {};
+    if (username && username.trim() === '') {
+        errors.username = 'Username Can\'t be empty.';
+    }
+    if (email && email.trim() === '') {
+        errors.email = 'Email Can\'t be empty.';
+    } else {
+        const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+        if (email && !email.match(regEx)) {
+            errors.email = 'Not valid Email';
+        }
+    }
+    if (password && password === '') {
+        errors.password = 'Password Can\'t be empty';
+    } else if (password && password !== confirmPassword) {
+        errors.confirmPassword = 'Your password doesn\'t match!';
+    }
+
+    return {
+        errors,
+        valid: Object.keys(errors).length < 1
+    }
+}
 export const validateRegisterInput = (
     username,
     email,

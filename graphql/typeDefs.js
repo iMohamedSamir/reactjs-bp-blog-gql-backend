@@ -40,6 +40,15 @@ export const typeDefs = gql `
         email: String!
         isAdmin: Boolean!
     }
+    input EditUserInput {
+        id: ID!
+        username: String
+        password: String
+        confirmPassword: String
+        createdAt: String
+        email: String
+        isAdmin: Boolean
+    }
     type Query {
         getPosts: [Post]
         getPost(postId: ID!): Post!
@@ -48,6 +57,7 @@ export const typeDefs = gql `
     type Mutation {
         register(registerInput: RegisterInput): User!
         login(username: String!, password: String!): User!
+        editUser(editUserInput: EditUserInput): User!
         createPost(body: String!, title: String!): Post!
         deletePost(postId: ID!): String
         createComment(postId: String!, body: String!): Comment!

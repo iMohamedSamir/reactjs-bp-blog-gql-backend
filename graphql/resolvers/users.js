@@ -2,7 +2,7 @@ import { default as bcrypt } from 'bcryptjs'
 import { default as jwt } from 'jsonwebtoken';
 import { UserInputError } from 'apollo-server';
 
-import { validateRegisterInput, validateLoginInput } from '../../util/Validator.js';
+import { validateRegisterInput, validateLoginInput, validateEditUserInput } from '../../util/Validator.js';
 import { User } from '../../Models/User.js';
 import { config } from '../../config.js';
 const generateToken = (user) => {
@@ -77,14 +77,6 @@ export const userResolvers = {
                     }
                 })
             }
-            // else if(vEmail) {
-            //     throw new UserInputError('Email is already been used.', {
-            //         errors: {
-            //             email: 'This email is used, did you forget your password?'
-            //         }
-            //     })
-            // }
-            // TODO: Hash password, create auth token.
             password = await bcrypt.hash(password, 12);
             const newUser = new User({
                 email,
@@ -103,6 +95,34 @@ export const userResolvers = {
                 ...res.isAdmin,
                 token
             }
-        }
+        },
+        async editUser(_, 
+            {editUserInput: {
+                id,
+                username,
+                email,
+                password,
+                confirmPassword,
+                isAdmin
+            }}) {
+                const { valid, errors } = validateEditUserInput(username, email, password, confirmPassword)
+                if (!valid) {
+                    throw new UserInputError('errors', { errors });
+                }
+                const user = await User.findOneAndUpdate({id}, {
+                    id,
+                    username,
+                    email,
+                    password,
+                    confirmPassword,
+                    isAdmin
+                }, { new: true });
+
+                return {
+                    ...user._doc,
+                    id: user._id,
+                    ...user.isAdmin,
+                }
+            }
     }
 };
