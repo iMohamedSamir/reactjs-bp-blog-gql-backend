@@ -58,6 +58,7 @@ export const typeDefs = gql `
         register(registerInput: RegisterInput): User!
         login(username: String!, password: String!): User!
         editUser(editUserInput: EditUserInput): User!
+        deleteUser(userId: ID!): String
         createPost(body: String!, title: String!): Post!
         deletePost(postId: ID!): String
         createComment(postId: String!, body: String!): Comment!

@@ -96,15 +96,7 @@ export const userResolvers = {
                 token
             }
         },
-        async editUser(_, 
-            {editUserInput: {
-                id,
-                username,
-                email,
-                password,
-                confirmPassword,
-                isAdmin
-            }}) {
+        async editUser(_, { editUserInput: { id, username, email, password, confirmPassword, isAdmin } }) {
                 const { valid, errors } = validateEditUserInput(username, email, password, confirmPassword)
                 if (!valid) {
                     throw new UserInputError('errors', { errors });
@@ -123,6 +115,18 @@ export const userResolvers = {
                     id: user._id,
                     ...user.isAdmin,
                 }
+            },
+        async deleteUser(_, { userId }) {
+            console.log(">>>>>>>>", userId)
+            try {
+                const user = await User.findById(userId)
+                if(user){
+                    user.delete()
+                    return 'User deleted successfully.';
+                } else throw new Error('User not found or already been deleted!')
+            } catch (err) {
+                throw new Error(err)
             }
+        }
     }
 };
