@@ -109,7 +109,7 @@ export const userResolvers = {
                 if (!valid) {
                     throw new UserInputError('errors', { errors });
                 }
-                const user = await User.findOneAndUpdate({id}, {
+                const user = await User.findByIdAndUpdate(id, {
                     id,
                     username,
                     email,
